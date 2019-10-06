@@ -9,6 +9,7 @@ using HotelSpectral.Data;
 using HotelSpectral.Domain.Interfaces;
 using HotelSpectral.Domain.Models;
 using HotelSpectral.Domain.Services;
+using HotelSpectral.Domain.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +21,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -55,11 +55,11 @@ namespace HotelSpectral.Domain.Infrastructure
 
         public static void AddDatabase(this IServiceCollection services, IConfiguration _config)
         {
-            var connectionString = _config.GetConnectionString("conString");
+            var connectionString = _config.GetConnectionString("conMySql");
 
             MigrateAssembly();
 
-            services.AddDbContextPool<HotelSpectralContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContextPool<HotelSpectralContext>(options => options.UseMySql(connectionString));
 
             //Add Scoped  ShutterCart ... 
             services.AddScoped<DbContext, HotelSpectralContext>();
@@ -90,14 +90,16 @@ namespace HotelSpectral.Domain.Infrastructure
         {
 
             // User store & roles  .. 
-           // services.AddScoped<IUserStore<UserModel>, UserStore>();
-           // services.AddScoped<IRoleStore<string>, RoleStore>();
+            services.AddScoped<IUserStore<UserModel>, UserStore>();
+            services.AddScoped<IRoleStore<string>, RoleStore>();
 
             //// Add transient app services  items
 
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IReservationService, ReservationService>();
+            services.AddTransient<IGuestService, GuestService>();
+            //IGuestService
         }
 
         public static void HangFireService(this IServiceCollection services, IConfiguration _config)
@@ -116,7 +118,7 @@ namespace HotelSpectral.Domain.Infrastructure
         /// Configure Jwt authentication service  .. 
         /// </summary>
         /// <param name="services"></param>
-        public static void ConfigureJwtAuthService(this IServiceCollection services, IConfiguration _config, IHostingEnvironment _env)
+        public static void ConfigureJwtAuthService(this IServiceCollection services, IConfiguration _config, Microsoft.Extensions.Hosting.IHostingEnvironment _env)
         {
 
 
@@ -176,7 +178,7 @@ namespace HotelSpectral.Domain.Infrastructure
             services.AddAutoMapper();
 
 
-            services.AddSingleton<IHostingEnvironment>(_env);
+            services.AddSingleton<Microsoft.Extensions.Hosting.IHostingEnvironment>(_env);
             services.AddSingleton<IConfiguration>(_config);
 
             // Register app services  ..
@@ -206,11 +208,12 @@ namespace HotelSpectral.Domain.Infrastructure
         {
             if (loggerFactory != null)
             {
-                loggerFactory.AddConsole(_config.GetSection("Logging"));
+              //  loggerFactory.AddConsole(_config.GetSection("Logging"));
             }
-            //loggerFactory.AddDebug();
+           // loggerFactory.AddDebug();
+
             ////FileLoggerExtensions
-            //loggerFactory.AddFile("logs/PayAjo-{Date}.txt");
+            loggerFactory.AddFile("logs/PayAjo-{Date}.txt");
         }
 
         public static void ActivateReactMvc(this IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
@@ -237,11 +240,11 @@ namespace HotelSpectral.Domain.Infrastructure
             {
                 routes.MapRoute(
                           name: "default",
-                          template: "{controller=Home}/{action=Index}/{id?}");
+                          template: "{controller=}/{action=Index}/{id?}");
 
-                //routes.MapSpaFallbackRoute(
-                //          name: "spa-fallback",
-                //          defaults: new { controller = "Home", action = "Index" });
+                routes.MapSpaFallbackRoute(
+                          name: "spa-fallback",
+                          defaults: new { controller = "Home", action = "Index" });
             });
 
         }

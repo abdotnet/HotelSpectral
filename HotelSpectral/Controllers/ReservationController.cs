@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelSpectral.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Route("api/v1/[controller]")]
     public class ReservationController : ApiController
     {
         // GET: api/values

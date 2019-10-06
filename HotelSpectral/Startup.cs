@@ -8,6 +8,7 @@ using Hangfire;
 using HotelSpectral.Data;
 using HotelSpectral.Domain.Infrastructure;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -74,7 +75,7 @@ namespace HotelSpectral
         /// <summary>
         /// Environment setup ..
         /// </summary>
-        public IHostingEnvironment _env { get; }
+        public Microsoft.Extensions.Hosting.IHostingEnvironment _env { get; }
         /// <summary>
         /// Startup constructor .. 
         /// </summary>
@@ -82,7 +83,7 @@ namespace HotelSpectral
         /// <param name="env"></param>
 
 
-        public Startup(IConfiguration config, IHostingEnvironment env)
+        public Startup(IConfiguration config, Microsoft.Extensions.Hosting.IHostingEnvironment env)
         {
             _config = config;
             _env = env;
@@ -98,11 +99,11 @@ namespace HotelSpectral
             services.AddApplicationIdentity(_config);
             services.InitializeAppServices();
 
-            // configure jwt auth service ..
+            //// configure jwt auth service ..
             services.ConfigureJwtAuthService(_config, _env);
 
             // Background service ..
-            //  services.HangFireService(_config);
+             services.HangFireService(_config);
 
             services.AddSwaggerGen(c =>
             {
@@ -136,12 +137,12 @@ namespace HotelSpectral
             // configure services  ..
             services.ConfigureServices();
 
-            //services.AddMvc();
+            services.AddMvc();
 
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory,
         IConfiguration configuration, HotelSpectralContext _context)
         {
 
@@ -155,7 +156,7 @@ namespace HotelSpectral
 
             if (env.IsDevelopment())
             {
-               // app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
 
                 //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 //{
@@ -164,24 +165,24 @@ namespace HotelSpectral
             }
             else
             {
-               // app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error");
             }
 
             //app.UseAntiforgeryTokens();
 
-            app.UseAuthentication();
+           // app.UseAuthentication();
 
-            app.UseExceptionHandler(builder =>
-            {
-                //builder.Run(
-                //    async context =>
-                //    {
-                //        context.Response.ContentType = "application/json";
-                //        var error = context.Features.Get<IExceptionHandlerFeature>();
-                //        //var result = context.Get(error.Error);
-                //        //await context.Response.WriteAsync(result);
-                //    });
-            });
+            //app.UseExceptionHandler(builder =>
+            //{
+            //    builder.Run(
+            //        async context =>
+            //        {
+            //            context.Response.ContentType = "application/json";
+            //            var error = context.Features.Get<IExceptionHandlerFeature>();
+            //            //var result = await context.Get(error.Error);
+            //            //await context.Response.WriteAsync(result);
+            //        });
+            //});
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -191,7 +192,7 @@ namespace HotelSpectral
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pay Ajo portal");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelSpectral portal");
                 c.RoutePrefix = "swagger";
             });
 
@@ -225,16 +226,16 @@ namespace HotelSpectral
             //if (env.IsDevelopment())
             //    PayAjoSeeder.Seed(_context);
 
-            app.Use(async (context, next) =>
-            {
-                //if ((context.Response.StatusCode == 404 || !Path.HasExtension(context.Request.Path.Value))
-                //                                 && !context.Request.Path.Value.StartsWith("/api/"))
-                //{
-                //    context.Request.Path = "/index.html";
-                //}
+            //app.Use(async (context, next) =>
+            //{
+            //    if ((context.Response.StatusCode == 404 || !Path.HasExtension(context.Request.Path.Value))
+            //                                     && !context.Request.Path.Value.StartsWith("/api/", StringComparison.CurrentCulture))
+            //    {
+            //        context.Request.Path = "/index.html";
+            //    }
 
-                await next.Invoke();
-            });
+            //    await next.Invoke();
+            //});
 
 
 

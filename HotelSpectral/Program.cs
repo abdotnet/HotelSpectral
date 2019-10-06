@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,18 +9,6 @@ namespace HotelSpectral
 {
     public class Program
     {
-        //public static void Main(string[] args)
-        //{
-        //    CreateHostBuilder(args).Build().Run();
-        //}
-
-        //public static IHostBuilder CreateHostBuilder(string[] args) =>
-        //    Host.CreateDefaultBuilder(args)
-        //        .ConfigureWebHostDefaults(webBuilder =>
-        //        {
-        //            webBuilder.UseStartup<Startup>();
-        //        });
-
         public static int Main(string[] args)
         {
             try
@@ -34,7 +23,7 @@ namespace HotelSpectral
                 Log.Logger = new LoggerConfiguration()
 
                     .ReadFrom.Configuration(configuration).WriteTo.Console()
-                    //.WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "log-{Date}.txt"))
+                  //  .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "log-{Date}.txt"))
                     .CreateLogger();
 
                 Log.Information("Starting web host");
