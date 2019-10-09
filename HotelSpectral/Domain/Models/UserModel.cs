@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace HotelSpectral.Domain.Models
 {
     public class UserModel : BaseModel
@@ -10,6 +12,7 @@ namespace HotelSpectral.Domain.Models
         public DateTime LastLoginDate { get; set; }
         public String PictureName { get; set; }
         public bool Status { get; set; }
+        public int RoleId { get; set; }
     }
 
     public class RoleModel

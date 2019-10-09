@@ -51,11 +51,7 @@
         <Folder Include="Views\" />
         <Folder Include="Views\Home\" />
         <Folder Include="Views\Shared\" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="bin\Debug\netcoreapp2.2\swagger.xml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+        <Folder Include="Domain\Infrastructure\Exceptions\" />
     </ItemGroup>
     <ItemGroup>
       <None Remove="Controllers\EmptyCSSFile.css" />

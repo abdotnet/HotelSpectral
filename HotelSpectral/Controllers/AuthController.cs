@@ -21,15 +21,47 @@ namespace HotelSpectral.Controllers
             _iAuthService = iAuthService;
         }
 
+        #region Manage Roles
         // GET: api/values
         [HttpPost("role")]
-        public async Task<IActionResult> AddRole([FromBody] String roleName)
+        public async Task<IActionResult> AddRole([FromBody] RoleModel model)
         {
-            ApiResponse reponse = await _iAuthService.AddRole(roleName);
+            ApiResponse reponse = await _iAuthService.AddRoleAsync(model);
 
             return Ok(reponse);
         }
 
-      
+        // GET: api/values
+        [HttpGet("role/{pageIndex}/{pageSize}")]
+        public async Task<IActionResult> GetRoles(int pageIndex, int pageSize)
+        {
+            ApiResponse reponse = await _iAuthService.GetRolesAsync();
+
+            return Ok(reponse);
+        }
+        [HttpGet("role/{roleId}")]
+        public async Task<IActionResult> GetRoles(int roleId)
+        {
+            ApiResponse reponse = await _iAuthService.GetRolesAsync();
+
+            return Ok(reponse);
+        }
+        #endregion
+
+        #region Manage Users
+
+        [HttpPost("user")]
+        public async Task<IActionResult> AddUser()
+        {
+            return Ok(null);
+        }
+        [HttpGet("user/{pageIndex}/{pageSize}")]
+        public async Task<IActionResult> GetUsers(int pageIndex, int pageSize)
+        {
+            
+            return Ok(null);
+        }
+
+        #endregion
     }
 }

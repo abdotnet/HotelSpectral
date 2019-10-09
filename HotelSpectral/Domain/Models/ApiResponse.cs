@@ -3,8 +3,10 @@ namespace HotelSpectral.Domain.Models
 {
     public class ApiResponse
     {
-        public String ResponseCode { get; set; }
-        public string  ResponseMessage { get; set; }
-        public Object  ResponseData { get; set; }
+        public string ResponseCode { get; set; }
+        public string ResponseMessage { get; set; }
+        public string[] Errors { get; set; }
+        public object ResponseData { get; set; }
+       // public IEnumerable<KeyValuePair<string, string[]>> ValidationErrors { get; set; }
     }
 }

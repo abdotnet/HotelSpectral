@@ -61,7 +61,7 @@ namespace HotelSpectral.Domain.Infrastructure
 
             services.AddDbContextPool<HotelSpectralContext>(options => options.UseMySql(connectionString));
 
-            //Add Scoped  ShutterCart ... 
+            //Add Scoped  Hotelspectral ... 
             services.AddScoped<DbContext, HotelSpectralContext>();
            // services.AddTransient<IUserRepository, UserRepository>();
 

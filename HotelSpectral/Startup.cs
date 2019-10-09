@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Hangfire;
 using HotelSpectral.Data;
 using HotelSpectral.Domain.Infrastructure;
+using HotelSpectral.Domain.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +20,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace HotelSpectral
 {
-  
+
 
     /// <summary>
     /// Startup class
@@ -62,7 +63,7 @@ namespace HotelSpectral
             services.ConfigureJwtAuthService(_config, _env);
 
             // Background service ..
-             services.HangFireService(_config);
+            services.HangFireService(_config);
 
             services.AddSwaggerGen(c =>
             {
@@ -106,7 +107,7 @@ namespace HotelSpectral
         {
 
             // Initialize db  event  . 
-           // app.Initializedb(env);
+            // app.Initializedb(env);
 
             // log activities  .. 
             app.Logger(loggerFactory, configuration);
@@ -129,19 +130,19 @@ namespace HotelSpectral
 
             //app.UseAntiforgeryTokens();
 
-           // app.UseAuthentication();
+            // app.UseAuthentication();
 
-            //app.UseExceptionHandler(builder =>
-            //{
-            //    builder.Run(
-            //        async context =>
-            //        {
-            //            context.Response.ContentType = "application/json";
-            //            var error = context.Features.Get<IExceptionHandlerFeature>();
-            //            //var result = await context.Get(error.Error);
-            //            //await context.Response.WriteAsync(result);
-            //        });
-            //});
+            app.UseExceptionHandler(builder =>
+            {
+                builder.Run(
+                    async context =>
+                    {
+                        context.Response.ContentType = "application/json";
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        var result = context.Get(error.Error);
+                        await context.Response.WriteAsync(result);
+                    });
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

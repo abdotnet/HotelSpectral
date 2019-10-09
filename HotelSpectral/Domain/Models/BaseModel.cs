@@ -16,8 +16,9 @@ namespace HotelSpectral.Domain.Models
         [Required]
         public int Gender { get; set; }
         public int Title { get; set; }
-        public string Mobile { get; set; }
         [Required]
+        public string Mobile { get; set; }
+        [EmailAddress()]
         public string EmailAddress { get; set; }
         public String Address { get; set; }
         public String City { get; set; }
