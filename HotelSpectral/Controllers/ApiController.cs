@@ -14,6 +14,11 @@ namespace HotelSpectral.Controllers
     [Route("api/[controller]")]
     public class ApiController : Controller
     {
-     
+
+        // GET: /<controller>/
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace HotelSpectral.Domain.Services
         public ReservationService()
         {
         }
+
     }
 }

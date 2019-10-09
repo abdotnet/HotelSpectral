@@ -24,7 +24,7 @@ namespace HotelSpectral.Domain.Infrastructure
 
                 if (errors.Count() > 0)
                 {
-                  // throw new ModelValidationException("Validation Error(s)", errors);
+                 // throw new ModelValidationException("Validation Error(s)", errors);
                 }
             }
         }

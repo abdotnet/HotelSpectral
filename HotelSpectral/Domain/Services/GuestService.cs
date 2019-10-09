@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using HotelSpectral.Data;
 using HotelSpectral.Data.Entities;
 using HotelSpectral.Domain.Enum;
+using HotelSpectral.Domain.Interfaces;
 using HotelSpectral.Domain.Models;
 
 namespace HotelSpectral.Domain.Services
 {
-    public class GuestService
+    public class GuestService : IGuestService
     {
         private HotelSpectralContext _context;
         public GuestService(HotelSpectralContext context)
@@ -62,7 +63,6 @@ namespace HotelSpectral.Domain.Services
 
             response.ResponseCode = AppResponseModel.SUCCESS_CODE;
             response.ResponseMessage = AppResponseModel.SUCCESS_MESSAGE;
-
             return response;
 
         }

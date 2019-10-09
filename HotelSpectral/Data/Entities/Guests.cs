@@ -9,9 +9,6 @@ namespace HotelSpectral.Data.Entities
         public Enum Status { get; set; }
         public int? UserId { get; set; }
 
-        public static implicit operator Guests(Guests v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

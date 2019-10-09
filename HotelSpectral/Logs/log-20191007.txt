@@ -1,0 +1,2 @@
+2019-10-07 05:47:42.486 +03:00 [Information] Starting web host
+2019-10-07 05:50:56.910 +03:00 [Information] Starting web host
