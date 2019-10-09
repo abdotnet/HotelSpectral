@@ -11,7 +11,7 @@ namespace HotelSpectral.Controllers
 {
    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ValidateModel]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ApiController : Controller
     {
 

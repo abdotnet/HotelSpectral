@@ -66,7 +66,7 @@ namespace HotelSpectral.Domain.Infrastructure
            // services.AddTransient<IUserRepository, UserRepository>();
 
         }
-
+        
         private static void MigrateAssembly()
         {
             var migrationAssembly = typeof(HotelSpectralContext).GetTypeInfo().Assembly.GetName().Name;
@@ -213,7 +213,7 @@ namespace HotelSpectral.Domain.Infrastructure
            // loggerFactory.AddDebug();
 
             ////FileLoggerExtensions
-            loggerFactory.AddFile("logs/PayAjo-{Date}.txt");
+            loggerFactory.AddFile("logs/Hotelspectral-{Date}.txt");
         }
 
         public static void ActivateReactMvc(this IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)

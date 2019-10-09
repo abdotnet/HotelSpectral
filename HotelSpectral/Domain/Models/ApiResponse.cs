@@ -1,7 +1,7 @@
 ﻿using System;
 namespace HotelSpectral.Domain.Models
 {
-    public class ApiResponseModel
+    public class ApiResponse
     {
         public String ResponseCode { get; set; }
         public string  ResponseMessage { get; set; }

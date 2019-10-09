@@ -8,7 +8,7 @@ namespace HotelSpectral.Data.Entities
         public String Username { get; set; }
         public String Password { get; set; }
         public String Salt { get; set; }
-        public Enum UserType { get; set; }
+        public int UserType { get; set; }
         public DateTime LastLoginDate { get; set; }
         public String PictureName { get; set; }
         public bool Status { get; set; }

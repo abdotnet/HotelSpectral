@@ -25,9 +25,9 @@ namespace HotelSpectral.Domain.Services
 
 
         ///Add Guest 
-        public async Task<ApiResponseModel> AddGuestAsync(GuestModel model)
+        public async Task<ApiResponse> AddGuestAsync(GuestModel model)
         {
-            ApiResponseModel response = new ApiResponseModel();
+            ApiResponse response = new ApiResponse();
 
             if (model == null) throw new Exception("Guest data cannot be empty");
 
@@ -49,7 +49,7 @@ namespace HotelSpectral.Domain.Services
                 UserId = model.UserId,
                 NationlID = model.NationlID,
                 NationalIDNo = model.NationalIDNo,
-                Status = AppStatus.InActive
+                Status = (int)AppStatus.InActive
             };
 
             _context.Add<Guests>(guest);
@@ -61,8 +61,9 @@ namespace HotelSpectral.Domain.Services
                 throw new Exception("Database error");
             }
 
-            response.ResponseCode = AppResponseModel.SUCCESS_CODE;
-            response.ResponseMessage = AppResponseModel.SUCCESS_MESSAGE;
+            response.ResponseCode = Responses.SUCCESS_CODE;
+            response.ResponseMessage = Responses.SUCCESS_MESSAGE;
+
             return response;
 
         }

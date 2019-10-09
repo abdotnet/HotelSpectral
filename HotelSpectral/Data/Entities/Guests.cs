@@ -5,8 +5,8 @@ namespace HotelSpectral.Data.Entities
 {
     public class Guests : BaseEntity 
     {
-        public object GuestNo { get; set; }
-        public Enum Status { get; set; }
+        public String GuestNo { get; set; }
+        public int Status { get; set; }
         public int? UserId { get; set; }
 
        
