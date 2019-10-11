@@ -103,18 +103,23 @@ namespace HotelSpectral.Domain.Services
             });
         }
 
-        public async Task<ApiResponse> AddUserAsync(UserModel model)
+        public async Task<ApiResponse> AddUserAsync(UserReqModel model, int roleId)
         {
             ApiResponse apiResponse = new ApiResponse();
 
-            // string[] roles = { "Administrator", "Staff", "Guest" };
-
             if (model == null) throw new Exception("User cannot be empty");
+
+            if (roleId <= 0) throw new Exception("Role must be selected");
 
             bool exist = _context.Users.Any(c => c.EmailAddress.ToUpper() == model.EmailAddress.ToUpper() || c.Mobile.ToUpper() == model.Mobile.ToUpper());
 
             if (exist) throw new Exception("User name already exist");
 
+            String salt = Guid.NewGuid().ToString();
+
+            model.Password = UtilityService.EncryptPassword(model.Password, salt);
+
+            DateTime dob = DateTime.Parse(model.DOB);
 
             var user = new User()
             {
@@ -124,7 +129,7 @@ namespace HotelSpectral.Domain.Services
                 Address = model.Address,
                 City = model.City,
                 Country = model.Country,
-                DOB = model.DOB,
+                DOB = dob,
                 FirstName = model.FirstName,
                 Gender = model.Gender,
                 LastName = model.LastName,
@@ -133,12 +138,12 @@ namespace HotelSpectral.Domain.Services
                 NationlID = model.NationlID,
                 PictureName = model.PictureName,
                 Password = model.Password,
-                Salt = model.Salt,
+                Salt = salt,
                 Religion = model.Religion,
                 Title = model.Title,
                 Username = model.Username,
                 UserType = model.UserType,
-                Status = true
+                Status = true,
             };
 
             await _context.Users.AddAsync(user);
@@ -148,7 +153,7 @@ namespace HotelSpectral.Domain.Services
             var userRole = new UserRole();
 
             userRole.CreatedDate = DateTime.Now;
-            userRole.RoleId = model.RoleId;
+            userRole.RoleId = roleId;
             userRole.UserId = user.Id;
 
             await _context.UserRoles.AddAsync(userRole);
@@ -159,6 +164,8 @@ namespace HotelSpectral.Domain.Services
 
             apiResponse.ResponseCode = Responses.SUCCESS_CODE;
             apiResponse.ResponseMessage = Responses.SUCCESS_MESSAGE;
+            user.Password = null;
+            user.Salt = null;
             apiResponse.ResponseData = user;
 
             return apiResponse;
@@ -191,11 +198,8 @@ namespace HotelSpectral.Domain.Services
                                 Mobile = u.Mobile,
                                 NationalIDNo = u.NationalIDNo,
                                 NationlID = u.NationlID,
-                                Password = u.Password,
                                 PictureName = u.PictureName,
                                 Religion = u.Religion,
-                                RoleId = ur.RoleId,
-                                Salt = u.Salt,
                                 Title = u.Title,
                                 Username = u.Username,
                                 UserType = u.UserType
@@ -231,19 +235,19 @@ namespace HotelSpectral.Domain.Services
                             join ur in _context.UserRoles on u.Id equals ur.UserId
                             where u.Status && ur.Status
                             where u.Id == userId
-                            select new UserModel()
+                            select new UserAdminModel()
                             {
-                                Status = u.Status,
-                                CreatedDate = u.CreatedDate,
-                                Id = u.Id,
+                                //Status = u.Status,
+                               // CreatedDate = u.CreatedDate,
+                               // Id = u.Id,
                                 FirstName = u.FirstName,
                                 Address = u.Address,
                                 City = u.City,
                                 Country = u.Country,
-                                DOB = u.DOB,
+                               // DOB = u.DOB,
                                 EmailAddress = u.EmailAddress,
                                 Gender = u.Gender,
-                                LastLoginDate = u.LastLoginDate,
+                                //LastLoginDate = u.LastLoginDate,
                                 LastName = u.LastName,
                                 Mobile = u.Mobile,
                                 NationalIDNo = u.NationalIDNo,
@@ -252,7 +256,6 @@ namespace HotelSpectral.Domain.Services
                                 PictureName = u.PictureName,
                                 Religion = u.Religion,
                                 RoleId = ur.RoleId,
-                                Salt = u.Salt,
                                 Title = u.Title,
                                 Username = u.Username,
                                 UserType = u.UserType
@@ -267,5 +270,94 @@ namespace HotelSpectral.Domain.Services
             });
         }
 
+        public async Task<ApiResponse> GetUserByNameAsync(string userName)
+        {
+            return await Task.Run<ApiResponse>(() =>
+            {
+                ApiResponse response = new ApiResponse();
+
+                var query = from user in _context.Users
+                            where user.Username == userName
+                            where user.EmailAddress == userName
+                            select user;
+
+                var _user = query.FirstOrDefault();
+
+                response.ResponseCode = Responses.SUCCESS_CODE;
+                response.ResponseMessage = Responses.SUCCESS_MESSAGE;
+                response.ResponseData = _user.Id;
+
+                return response;
+            });
+
+
+        }
+
+
+        public async Task<ApiResponse> ValidateUser(string userName, string password)
+        {
+
+            ApiResponse response = new ApiResponse();
+
+            var _user = from u in _context.Users
+                        join ur in _context.UserRoles on u.Id equals ur.UserId
+                        where u.EmailAddress == userName || u.Username == userName
+                        select new TokenInfoModel
+                        {
+                            Email = u.EmailAddress,
+                            Firstname = u.FirstName,
+                            LastLoginDate = u.LastLoginDate,
+                            LastName = u.LastName,
+                            PicturePath = u.PictureName,
+                            UserId = u.Id,
+                            RoleId = ur.RoleId,
+                            IsActive = u.Status,
+                            Salt = u.Salt,
+                             Password = u.Password
+                        };
+
+            var user = _user.FirstOrDefault();
+
+            if (user == null) throw new Exception("User not found");
+
+            if (!user.IsActive) throw new Exception("User is not active");
+
+            string pwd = UtilityService.EncryptPassword(password, user.Salt);
+
+            if (!pwd.Equals(user.Password))
+                throw new Exception("Either username or password is incorrect");
+
+            var tokenModel = new TokenModel()
+            {
+                Email = user.Email,
+                Firstname = user.Firstname,
+                LastLoginDate = user.LastLoginDate,
+                LastName = user.LastName,
+                PicturePath = user.PicturePath,
+                UserId = user.UserId,
+                 RolId = user.RoleId
+            };
+
+
+            response.ResponseCode = Responses.SUCCESS_CODE;
+            response.ResponseMessage = Responses.SUCCESS_MESSAGE;
+            response.ResponseData = tokenModel;
+
+            var user_ = _context.Users.FirstOrDefault(c => c.Id == tokenModel.UserId);
+
+            // update last login date....
+            user_.LastLoginDate = DateTime.Now;
+            _context.Users.Update(user_);
+            await _context.SaveChangesAsync();
+
+            return response;
+        }
+
+
+
     }
+
+    // create permission , role permission ..
+
+
 }

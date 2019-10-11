@@ -1,14 +1,16 @@
 ﻿using System;
 using HotelSpectral.Data;
+using HotelSpectral.Domain.Interfaces;
 
 namespace HotelSpectral.Domain.Services
 {
     public class Service
     {
-        private HotelSpectralContext _context;
+       // public  readonly HotelSpectralContext _context;
 
-        public Service()
+        public Service(HotelSpectralContext context)
         {
+           // _context = context;
         }
     }
 }

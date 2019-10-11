@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelSpectral.Controllers
 {
-   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ValidateModel]
     [Route("api/v1/[controller]")]
     public class ApiController : Controller

@@ -8,7 +8,8 @@ namespace HotelSpectral.Data
     {
         public HotelSpectralContext (DbContextOptions<HotelSpectralContext> options) : base(options)
         {
-            new DbContextOptionsBuilder().EnableSensitiveDataLogging(true);
+          //  new DbContextOptionsBuilder().EnableSensitiveDataLogging(true);
+          
         }
 
         public DbSet<User> Users { get; set; }
@@ -27,6 +28,11 @@ namespace HotelSpectral.Data
         {
             base.OnModelCreating(modelBuilder);
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder =  new DbContextOptionsBuilder().EnableSensitiveDataLogging(true);
 
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

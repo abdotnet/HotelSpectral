@@ -6,6 +6,6 @@ namespace HotelSpectral.Domain.Enum
     {
         Int_Passport,
         Driving_Licence,
-        Nimc
+        NimcNo
     }
 }

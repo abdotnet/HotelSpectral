@@ -1,0 +1,135 @@
+2019-10-11 03:39:05.439 +01:00 [Information] Starting web host
+2019-10-11 03:41:11.668 +01:00 [Error] An unhandled exception has occurred while executing the request.
+System.Exception: User cannot be empty
+   at HotelSpectral.Domain.Services.AuthService.AddUserAsync(UserModel model, Int32 roleId) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Domain/Services/AuthService.cs:line 112
+   at HotelSpectral.Controllers.AuthController.AddGuestUser(UserModel model) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Controllers/AuthController.cs:line 66
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+2019-10-11 03:43:24.213 +01:00 [Information] Starting web host
+2019-10-11 03:45:58.495 +01:00 [Error] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: An exception was thrown while attempting to evaluate a LINQ query parameter expression. To show additional information call EnableSensitiveDataLogging() when overriding DbContext.OnConfiguring. ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at lambda_method(Closure )
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.Evaluate(Expression expression, String& parameterName)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.Evaluate(Expression expression, String& parameterName)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.TryExtractParameter(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at System.Linq.Expressions.MethodCallExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at System.Linq.Expressions.ExpressionVisitor.VisitBinary(BinaryExpression node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitBinary(BinaryExpression binaryExpression)
+   at System.Linq.Expressions.BinaryExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitBinary(BinaryExpression binaryExpression)
+   at System.Linq.Expressions.BinaryExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at System.Linq.Expressions.ExpressionVisitor.VisitLambda[T](Expression`1 node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitLambda[T](Expression`1 node)
+   at System.Linq.Expressions.Expression`1.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at System.Linq.Expressions.ExpressionVisitor.VisitUnary(UnaryExpression node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitUnary(UnaryExpression unaryExpression)
+   at System.Linq.Expressions.UnaryExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at System.Dynamic.Utils.ExpressionVisitorUtils.VisitArguments(ExpressionVisitor visitor, IArgumentProvider nodes)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMethodCall(MethodCallExpression node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at System.Linq.Expressions.MethodCallExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ParameterExtractingExpressionVisitor.ExtractParameters(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryModelGenerator.ExtractParameters(IDiagnosticsLogger`1 logger, Expression query, IParameterValues parameterValues, Boolean parameterize, Boolean generateContextAccessors)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Linq.Queryable.Any[TSource](IQueryable`1 source, Expression`1 predicate)
+   at HotelSpectral.Domain.Services.AuthService.AddUserAsync(UserModel model, Int32 roleId) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Domain/Services/AuthService.cs:line 114
+   at HotelSpectral.Controllers.AuthController.AddGuestUser(UserModel model) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Controllers/AuthController.cs:line 66
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+2019-10-11 04:02:30.481 +01:00 [Information] Starting web host
+2019-10-11 04:05:12.251 +01:00 [Information] Starting web host
+2019-10-11 04:08:05.791 +01:00 [Information] Starting web host
+2019-10-11 04:17:57.155 +01:00 [Information] Starting web host
+2019-10-11 04:22:29.594 +01:00 [Error] An unhandled exception has occurred while executing the request.
+System.FormatException: String '17/02/1986' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at HotelSpectral.Domain.Services.AuthService.AddUserAsync(UserReqModel model, Int32 roleId) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Domain/Services/AuthService.cs:line 122
+   at HotelSpectral.Controllers.AuthController.AddGuestUser(UserReqModel model) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Controllers/AuthController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+2019-10-11 10:14:17.066 +01:00 [Information] Starting web host
+2019-10-11 10:16:12.869 +01:00 [Error] An unhandled exception has occurred while executing the request.
+System.FormatException: String '17.02.1986' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at HotelSpectral.Domain.Services.AuthService.AddUserAsync(UserReqModel model, Int32 roleId) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Domain/Services/AuthService.cs:line 122
+   at HotelSpectral.Controllers.AuthController.AddGuestUser(UserReqModel model) in /Users/omolajaabubakar/Projects/HotelSpectral/HotelSpectral/Controllers/AuthController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.Invoke(HttpContext context)
+2019-10-11 10:22:38.191 +01:00 [Information] Starting web host
+2019-10-11 10:24:55.568 +01:00 [Information] Starting web host
+2019-10-11 10:26:53.732 +01:00 [Information] Starting web host
+2019-10-11 10:50:42.430 +01:00 [Information] Starting web host
