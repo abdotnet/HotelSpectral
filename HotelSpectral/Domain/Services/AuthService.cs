@@ -111,7 +111,8 @@ namespace HotelSpectral.Domain.Services
 
             if (roleId <= 0) throw new Exception("Role must be selected");
 
-            bool exist = _context.Users.Any(c => c.EmailAddress.ToUpper() == model.EmailAddress.ToUpper() || c.Mobile.ToUpper() == model.Mobile.ToUpper());
+            bool exist = _context.Users.Any(c => c.EmailAddress.ToUpper() == model.EmailAddress.ToUpper()
+            || c.Mobile.ToUpper() == model.Mobile.ToUpper() || c.Username ==  model.Username);
 
             if (exist) throw new Exception("User name already exist");
 

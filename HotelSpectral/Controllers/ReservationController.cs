@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotelSpectral.Domain.Interfaces;
+using HotelSpectral.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,20 +14,31 @@ namespace HotelSpectral.Controllers
     [Route("api/v1/[controller]")]
     public class ReservationController : ApiController
     {
+        private readonly IReservationService _iReservationService;
+
+        public ReservationController(IReservationService iReservationService)
+        {
+            _iReservationService = iReservationService;
+        }
+
         // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpPost("reservation")]
+        public async Task<IActionResult> AddReservation([FromBody] ReservationModel model)
         {
-            return new string[] { "value1", "value2" };
+            ApiResponse reponse = await _iReservationService.AddReservationAsync(model);
+
+            return Ok(reponse);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/values
+        [HttpGet("reservation/{pageIndex}/{pageSize}")]
+        public async Task<IActionResult> GetReservations(int pageIndex, int pageSize)
         {
-            return "value";
+            ApiResponse reponse = await _iReservationService.GetReservationAsync(pageIndex, pageSize);
+
+            return Ok(reponse);
         }
 
-     
+
     }
 }

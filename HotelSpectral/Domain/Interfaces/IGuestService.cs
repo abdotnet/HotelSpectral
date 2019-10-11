@@ -7,5 +7,6 @@ namespace HotelSpectral.Domain.Interfaces
     public interface IGuestService
     {
         Task<ApiResponse> AddGuestAsync(GuestModel model);
+        Task<ApiResponse> GetGuestAsync(int pageIndex, int pageSize);
     }
 }
